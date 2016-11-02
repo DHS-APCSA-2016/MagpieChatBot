@@ -1,15 +1,7 @@
-/**
- * A program to carry on conversations with a human user.
- * This version:
- *<ul><li>
- *      Uses advanced search for keywords 
- *</li><li>
- *      Will transform statements as well as react to keywords
- *</li></ul>
- * @author Laurie White
- * @version April 2012
- *
- */
+import java.util.Random;
+import java.io.*;
+import java.text.*;
+
 public class Magpie4
 {
     /**
@@ -30,7 +22,7 @@ public class Magpie4
             "inductor","ampere's law","faraday's law",
             "pendulum","period","oscillation","normal force",
             "gravity","calculus","derivative","integral",
-            "kinematics","gravitation","coloumb's law","charge"};
+            "kinematics","gravitation","coloumb's law","charge", "hello", "bye"};
     String[] responses = {"The newton (symbol: N) is the International System of Units (SI) derived unit of force. It is named after Isaac Newton in recognition of his work on classical mechanics, specifically Newton's second law of motion.",
             "Newton's second law of motion can be formally stated as follows: The acceleration of an object as produced by a net force is directly proportional to the magnitude of the net force, in the same direction as the net force, and inversely proportional to the mass of the object.",
             "Newton's first lawof motion - sometimes referred to as the lawof inertia. Newton's first law of motion is often stated as. An object at rest stays at rest and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force.",
@@ -65,17 +57,23 @@ public class Magpie4
             "the force of attraction between all masses in the universe; especially the attraction of the earth's mass for bodies near its surface",
             "Coulomb's law states that: The magnitude of the electrostatic force of interaction between two point charges is directly proportional to the scalar multiplication of the magnitudes of charges and inversely proportional to the square of the distance between them. The force is along the straight line joining them.",
             "In physics, charge, also known as electric charge, electrical charge, or electrostatic charge and symbolized q, is a characteristic of a unit of matter that expresses the extent to which it has more or fewer electrons than protons.",
+             "Hello! Welcome to the physics chatbot! Ask me any question and I can help you!",
+             "Hello! Welcome to the physics chatbot! Ask me any question and I can help you!",
+             "Thank you for using the physics bot! Goodbye!",
             "That question is unfortunately not in my database. Please refer to google.com.",
-            "Good question!",
+            "Welcome to the Physics chatbot! I will try my best to answer all of your questions.",
+        };
+        String[] randresp = {
+            "Good assertion!",
             "I am unable to answer that.",
             "Did you know that Newton's second law states that F = ma?",
             "Do you know the name of the first electricity detective? Sherlock Ohms!!! HAHAHA",
             "Busy at the moment.",
             "Please try again later.",
-            "Servers are currently down to reach the online database. Please try again.",
-            "An error has occured. Please retry.",
-            "Welcome to the Physics chatbot! I will try my best to answer all of your questions.",
-        };
+             "Hello! Welcome to the physics chatbot! Ask me any question and I can help you!","Servers are currently down to reach the online database. Please try again.",
+            "An error has occured. Please retry."};
+        
+        Random rand = new Random();
 
     public String getResponse(String statement)
     {
@@ -87,54 +85,53 @@ public class Magpie4
                 response = responses[value];
             }
         }
+        if(response == null){
+            int a = rand.nextInt(randresp.length);
+            response = randresp[a];
+        }
+        if(findKeyword(statement, "derivCalc") >= 0){
+            try
+	{
+	    BufferedReader br = new BufferedReader (new InputStreamReader (System.in));
+	    DecimalFormat df = new DecimalFormat ("#.####");
+	    System.out.print ("Enter the highest degree of the polynomial: ");
+	    int a = Integer.parseInt (br.readLine ());
+	    double coefficient[] = new double [a + 1];
+	    double dxdy[] = new double [a];
+	    for (int i = 0 ; i <= a ; i++)
+	    {
+		System.out.print ("Enter number: ");
+		coefficient [i] = Double.parseDouble (br.readLine ());
+	    }
+	    int ce = a;
+	    for (int j = 0 ; j < a ; j++)
+	    {
+		dxdy [j] = coefficient [j] * ce;
+		ce--;
+	    }
+	    System.out.print ("Derivative of Function: ");
+	    if (a != 0)
+	    {
+		for (int k = 0 ; k < a ; k++)
+		{
+		    System.out.print (df.format (dxdy [k]) + " ");
+		}
+	    }
+	    else
+	    {
+		System.out.print (0);
+	    }
+	}
+	catch (Exception e)
+	{
+	    System.exit (0);
+	}
+        }
         return response;
     }
-
-    /*
-    String response = "";
-    if (statement.length() == 0)
-    {
-    response = "Say something, please.";
-    }
-
-    else if (findKeyword(statement, "no") >= 0)
-    {
-    response = "Why so negative?";
-    }
-    else if (findKeyword(statement, "mother") >= 0
-    || findKeyword(statement, "father") >= 0
-    || findKeyword(statement, "sister") >= 0
-    || findKeyword(statement, "brother") >= 0)
-    {
-    response = "Tell me more about your family.";
-    }
-
-    // Responses which require transformations
-    else if (findKeyword(statement, "I want to", 0) >= 0)
-    {
-    response = transformIWantToStatement(statement);
-    }
-
-    else
-    {
-    // Look for a two word (you <something> me)
-    // pattern
-    int psn = findKeyword(statement, "you", 0);
-
-    if (psn >= 0
-    && findKeyword(statement, "me", psn) >= 0)
-    {
-    response = transformYouMeStatement(statement);
-    }
-    else
-    {
-    response = getRandomResponse();
-    }
-    }
-    return response;
-
-    }
-     */
+    
+    
+ 
     /**
      * Take a statement with "I want to <something>." and transform it into 
      * "What would it mean to <something>?"
