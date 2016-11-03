@@ -4,15 +4,12 @@ import java.text.*;
 
 public class Magpie4
 {
-    /**
-     * Get a default greeting   
-     * @return a greeting
-     */ 
     public String getGreeting()
     {
         return "Hello, let's talk.";
     }
-
+    
+ 
     String[] keywords = {"newton","second law",
             "first law","third law",
             "ap","mechanics","flux","momentum",
@@ -22,7 +19,7 @@ public class Magpie4
             "inductor","ampere's law","faraday's law",
             "pendulum","period","oscillation","normal force",
             "gravity","calculus","derivative","integral",
-            "kinematics","gravitation","coloumb's law","charge", "hello", "bye"};
+            "kinematics","gravitation","coloumb's law","charge", "hello", "bye", "derivCalc"};
     String[] responses = {"The newton (symbol: N) is the International System of Units (SI) derived unit of force. It is named after Isaac Newton in recognition of his work on classical mechanics, specifically Newton's second law of motion.",
             "Newton's second law of motion can be formally stated as follows: The acceleration of an object as produced by a net force is directly proportional to the magnitude of the net force, in the same direction as the net force, and inversely proportional to the mass of the object.",
             "Newton's first lawof motion - sometimes referred to as the lawof inertia. Newton's first law of motion is often stated as. An object at rest stays at rest and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force.",
@@ -57,12 +54,12 @@ public class Magpie4
             "the force of attraction between all masses in the universe; especially the attraction of the earth's mass for bodies near its surface",
             "Coulomb's law states that: The magnitude of the electrostatic force of interaction between two point charges is directly proportional to the scalar multiplication of the magnitudes of charges and inversely proportional to the square of the distance between them. The force is along the straight line joining them.",
             "In physics, charge, also known as electric charge, electrical charge, or electrostatic charge and symbolized q, is a characteristic of a unit of matter that expresses the extent to which it has more or fewer electrons than protons.",
+          "Hello! Welcome to the physics chatbot! Ask me any question and I can help you!",
              "Hello! Welcome to the physics chatbot! Ask me any question and I can help you!",
-             "Hello! Welcome to the physics chatbot! Ask me any question and I can help you!",
+              "The derivative calculator has calculated the derivative function of your polynomial. The calculator only shows the coefficients of the derivative. The first number corresponds to a degree of the highest order polynomial term - 1 and decrements by 1 per number.",
              "Thank you for using the physics bot! Goodbye!",
-            "That question is unfortunately not in my database. Please refer to google.com.",
-            "Welcome to the Physics chatbot! I will try my best to answer all of your questions.",
-        };
+                    };
+       
         String[] randresp = {
             "Good assertion!",
             "I am unable to answer that.",
@@ -71,26 +68,14 @@ public class Magpie4
             "Busy at the moment.",
             "Please try again later.",
              "Hello! Welcome to the physics chatbot! Ask me any question and I can help you!","Servers are currently down to reach the online database. Please try again.",
-            "An error has occured. Please retry."};
+            "An error has occured. Please retry.",
+        };
+
         
         Random rand = new Random();
-
-    public String getResponse(String statement)
-    {
-        String response = null;
-        for(int i = 0; i < keywords.length; i++)
-        {
-            if(findKeyword(statement, keywords[i]) >= 0){
-                int value = i;
-                response = responses[value];
-            }
-        }
-        if(response == null){
-            int a = rand.nextInt(randresp.length);
-            response = randresp[a];
-        }
-        if(findKeyword(statement, "derivCalc") >= 0){
-            try
+        
+    public String derivCalc(){
+              try
 	{
 	    BufferedReader br = new BufferedReader (new InputStreamReader (System.in));
 	    DecimalFormat df = new DecimalFormat ("#.####");
@@ -126,10 +111,28 @@ public class Magpie4
 	{
 	    System.exit (0);
 	}
-        }
-        return response;
+return null;
     }
-    
+
+    public String getResponse(String statement)
+    {
+        String response = null;
+        for(int i = 0; i < keywords.length; i++)
+        {
+            if(findKeyword(statement, keywords[i]) >= 0){
+                int value = i;
+                response = responses[value];
+            }
+        }
+        if(response == null){
+            int a = rand.nextInt(randresp.length);
+            response = randresp[a];
+        }
+        if(findKeyword(statement, "derivCalc") >= 0){
+         derivCalc();
+    }
+return response;
+}
     
  
     /**
