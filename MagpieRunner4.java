@@ -24,6 +24,7 @@ public class MagpieRunner4
 			System.out.println (maggie.getResponse(statement));
 			statement = in.nextLine();
 		}
+		System.out.println("Goodbye! Please exit the chatbot now. ");
 	}
 
 }

@@ -8,8 +8,7 @@ public class Magpie4
     {
         return "Hello, let's talk.";
     }
-    
- 
+
     String[] keywords = {"newton","second law",
             "first law","third law",
             "ap","mechanics","flux","momentum",
@@ -20,6 +19,7 @@ public class Magpie4
             "pendulum","period","oscillation","normal force",
             "gravity","calculus","derivative","integral",
             "kinematics","gravitation","coloumb's law","charge", "hello", "bye", "derivCalc"};
+            
     String[] responses = {"The newton (symbol: N) is the International System of Units (SI) derived unit of force. It is named after Isaac Newton in recognition of his work on classical mechanics, specifically Newton's second law of motion.",
             "Newton's second law of motion can be formally stated as follows: The acceleration of an object as produced by a net force is directly proportional to the magnitude of the net force, in the same direction as the net force, and inversely proportional to the mass of the object.",
             "Newton's first lawof motion - sometimes referred to as the lawof inertia. Newton's first law of motion is often stated as. An object at rest stays at rest and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force.",
@@ -54,64 +54,62 @@ public class Magpie4
             "the force of attraction between all masses in the universe; especially the attraction of the earth's mass for bodies near its surface",
             "Coulomb's law states that: The magnitude of the electrostatic force of interaction between two point charges is directly proportional to the scalar multiplication of the magnitudes of charges and inversely proportional to the square of the distance between them. The force is along the straight line joining them.",
             "In physics, charge, also known as electric charge, electrical charge, or electrostatic charge and symbolized q, is a characteristic of a unit of matter that expresses the extent to which it has more or fewer electrons than protons.",
-          "Hello! Welcome to the physics chatbot! Ask me any question and I can help you!",
-             "Hello! Welcome to the physics chatbot! Ask me any question and I can help you!",
-              "The derivative calculator has calculated the derivative function of your polynomial. The calculator only shows the coefficients of the derivative. The first number corresponds to a degree of the highest order polynomial term - 1 and decrements by 1 per number.",
-             "Thank you for using the physics bot! Goodbye!",
-                    };
-       
-        String[] randresp = {
+            "Hello! Welcome to the physics chatbot! Ask me any question and I can help you!",
+            "Hello! Welcome to the physics chatbot! Ask me any question and I can help you!",
+            "The derivative calculator has calculated the derivative function of your polynomial. The calculator only shows the coefficients of the derivative. The first number corresponds to a degree of the highest order polynomial term - 1 and decrements by 1 per number.",
+            "Thank you for using the physics bot! Goodbye!",
+        };
+
+    String[] randresp = {
             "Good assertion!",
             "I am unable to answer that.",
             "Did you know that Newton's second law states that F = ma?",
             "Do you know the name of the first electricity detective? Sherlock Ohms!!! HAHAHA",
             "Busy at the moment.",
             "Please try again later.",
-             "Hello! Welcome to the physics chatbot! Ask me any question and I can help you!","Servers are currently down to reach the online database. Please try again.",
+            "Hello! Welcome to the physics chatbot! Ask me any question and I can help you!","Servers are currently down to reach the online database. Please try again.",
             "An error has occured. Please retry.",
         };
 
-        
-        Random rand = new Random();
-        
+    Random rand = new Random();
     public String derivCalc(){
-              try
-	{
-	    BufferedReader br = new BufferedReader (new InputStreamReader (System.in));
-	    DecimalFormat df = new DecimalFormat ("#.####");
-	    System.out.print ("Enter the highest degree of the polynomial: ");
-	    int a = Integer.parseInt (br.readLine ());
-	    double coefficient[] = new double [a + 1];
-	    double dxdy[] = new double [a];
-	    for (int i = 0 ; i <= a ; i++)
-	    {
-		System.out.print ("Enter number: ");
-		coefficient [i] = Double.parseDouble (br.readLine ());
-	    }
-	    int ce = a;
-	    for (int j = 0 ; j < a ; j++)
-	    {
-		dxdy [j] = coefficient [j] * ce;
-		ce--;
-	    }
-	    System.out.print ("Derivative of Function: ");
-	    if (a != 0)
-	    {
-		for (int k = 0 ; k < a ; k++)
-		{
-		    System.out.print (df.format (dxdy [k]) + " ");
-		}
-	    }
-	    else
-	    {
-		System.out.print (0);
-	    }
-	}
-	catch (Exception e)
-	{
-	    System.exit (0);
-	}
-return null;
+        try
+        {
+            BufferedReader br = new BufferedReader (new InputStreamReader (System.in));
+            DecimalFormat df = new DecimalFormat ("#.####");
+            System.out.print ("Enter the highest degree of the polynomial: ");
+            int a = Integer.parseInt (br.readLine ());
+            double coefficient[] = new double [a + 1];
+            double dxdy[] = new double [a];
+            for (int i = 0 ; i <= a ; i++)
+            {
+                System.out.print ("Enter number: ");
+                coefficient [i] = Double.parseDouble (br.readLine ());
+            }
+            int ce = a;
+            for (int j = 0 ; j < a ; j++)
+            {
+                dxdy [j] = coefficient [j] * ce;
+                ce--;
+            }
+            System.out.print ("Derivative of Function: ");
+            if (a != 0)
+            {
+                for (int k = 0 ; k < a ; k++)
+                {
+                    System.out.print (df.format (dxdy [k]) + " ");
+                }
+            }
+            else
+            {
+                System.out.print (0);
+            }
+        }
+        catch (Exception e)
+        {
+            System.exit (0);
+        }
+        return null;
     }
 
     public String getResponse(String statement)
@@ -129,18 +127,11 @@ return null;
             response = randresp[a];
         }
         if(findKeyword(statement, "derivCalc") >= 0){
-         derivCalc();
+            derivCalc();
+        }
+        return response;
     }
-return response;
-}
-    
- 
-    /**
-     * Take a statement with "I want to <something>." and transform it into 
-     * "What would it mean to <something>?"
-     * @param statement the user statement, assumed to contain "I want to"
-     * @return the transformed statement
-     */
+
     private String transformIWantToStatement(String statement)
     {
         //  Remove the final period, if there is one
@@ -156,13 +147,7 @@ return response;
         String restOfStatement = statement.substring(psn + 9).trim();
         return "What would it mean to " + restOfStatement + "?";
     }
-
-    /**
-     * Take a statement with "you <something> me" and transform it into 
-     * "What makes you think that I <something> you?"
-     * @param statement the user statement, assumed to contain "you" followed by "me"
-     * @return the transformed statement
-     */
+ 
     private String transformYouMeStatement(String statement)
     {
         //  Remove the final period, if there is one
@@ -181,16 +166,7 @@ return response;
         String restOfStatement = statement.substring(psnOfYou + 3, psnOfMe).trim();
         return "What makes you think that I " + restOfStatement + " you?";
     }
-
-    /**
-     * Search for one word in phrase.  The search is not case sensitive.
-     * This method will check that the given goal is not a substring of a longer string
-     * (so, for example, "I know" does not contain "no").  
-     * @param statement the string to search
-     * @param goal the string to search for
-     * @param startPos the character of the string to begin the search at
-     * @return the index of the first occurrence of goal in statement or -1 if it's not found
-     */
+ 
     private int findKeyword(String statement, String goal, int startPos)
     {
         String phrase = statement.trim();
@@ -226,23 +202,12 @@ return response;
         return -1;
     }
 
-    /**
-     * Search for one word in phrase.  The search is not case sensitive.
-     * This method will check that the given goal is not a substring of a longer string
-     * (so, for example, "I know" does not contain "no").  The search begins at the beginning of the string.  
-     * @param statement the string to search
-     * @param goal the string to search for
-     * @return the index of the first occurrence of goal in statement or -1 if it's not found
-     */
+
     private int findKeyword(String statement, String goal)
     {
         return findKeyword (statement, goal, 0);
     }
-
-    /**
-     * Pick a default response to use if nothing else fits.
-     * @return a non-committal string
-     */
+ 
     private String getRandomResponse()
     {
         final int NUMBER_OF_RESPONSES = 4;
@@ -252,22 +217,25 @@ return response;
 
         if (whichResponse == 0)
         {
-            response = "Interesting, tell me more.";
+            response = "Did you know that Newton's second law states that F = ma?";
         }
         else if (whichResponse == 1)
         {
-            response = "Hmmm.";
+            response = "Do you know the name of the first electricity detective? Sherlock Ohms!!! HAHAHA";
         }
         else if (whichResponse == 2)
         {
-            response = "Do you really think so?";
+            response = "An error has occured. Please retry.";
         }
         else if (whichResponse == 3)
         {
-            response = "You don't say.";
+            response = "Busy at the moment.";
         }
 
         return response;
     }
 
 }
+
+ 
+            
